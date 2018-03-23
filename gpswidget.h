@@ -27,21 +27,21 @@ public:
     ~GPSWidget();
 
 private slots:
-    void on_StartGPSbtn_clicked();
+    void on_StartGPSbtn_clicked();              // Open the port
 
-    void on_StopGPSbtn_clicked();
+    void on_StopGPSbtn_clicked();               // Close the port
 
-    void readGpsData();
+    void readGpsData();                         // Parse GPS data
 
 private:
     Ui::GPSWidget *ui;
-    void startInit();
-    void setComboBoxEnabled(bool status);
-    void GpsDisplay();
-    QString& UTCtime(QString& u_time);
-    QString& UTCdate(QString& u_date);
-    QString& alt_position(QString& alt_str);
-    QString& lon_position(QString& lon_str);
+    void startInit();                           // Read available port and set timer to listen
+    void setComboBoxEnabled(bool status);       // Set/reset port parameters
+    void GpsDisplay();                          // Display GPS data
+    QString& UTCtime(QString& u_time);          // Process time data
+    QString& UTCdate(QString& u_date);          // Process date data
+    QString& alt_position(QString& alt_str);    // Process alititude data
+    QString& lon_position(QString& lon_str);    // Process longitude data
     int timerdly;
     Win_QextSerialPort *myGpsCom;
     QByteArray GPS_RMC;

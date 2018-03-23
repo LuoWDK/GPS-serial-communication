@@ -15,6 +15,7 @@ GPSWidget::~GPSWidget()
     delete ui;
 }
 
+// Open the port
 void GPSWidget::on_StartGPSbtn_clicked()
 {
     QString portName = ui->portNameComboBoxGPS->currentText();
@@ -38,6 +39,7 @@ void GPSWidget::on_StartGPSbtn_clicked()
     ui->StopGPSbtn->setEnabled(true);
 }
 
+// Close the port
 void GPSWidget::on_StopGPSbtn_clicked()
 {
     myGpsCom->close();
@@ -49,6 +51,7 @@ void GPSWidget::on_StopGPSbtn_clicked()
     ui->StopGPSbtn->setEnabled(false);
 }
 
+// Read available port and set timer to listen
 void GPSWidget::startInit()
 {
     QList<QSerialPortInfo> infos = QSerialPortInfo::availablePorts();
@@ -65,6 +68,7 @@ void GPSWidget::startInit()
     connect(readTimer, SIGNAL(timeout()), this, SLOT(readGpsData()));
 }
 
+// Set / reset port parameters
 void GPSWidget::setComboBoxEnabled(bool status)
 {
     ui->portNameComboBoxGPS->setEnabled(status);
@@ -74,6 +78,7 @@ void GPSWidget::setComboBoxEnabled(bool status)
     ui->stopBitsComboBoxGPS->setEnabled(status);
 }
 
+// Display GPS data
 void GPSWidget::GpsDisplay()
 {
     QString alt_str;
@@ -93,6 +98,7 @@ void GPSWidget::GpsDisplay()
     }
 }
 
+// Process time data
 QString& GPSWidget::UTCtime(QString &u_time)
 {
     u_time.clear();
@@ -101,6 +107,7 @@ QString& GPSWidget::UTCtime(QString &u_time)
     return u_time;
 }
 
+// Process date data
 QString& GPSWidget::UTCdate(QString& u_date)
 {
     u_date.clear();
@@ -112,6 +119,7 @@ QString& GPSWidget::UTCdate(QString& u_date)
     return u_date;
 }
 
+// Process alititude data
 QString& GPSWidget::alt_position(QString& alt_str)
 {
     alt_str.clear();
@@ -133,6 +141,7 @@ QString& GPSWidget::alt_position(QString& alt_str)
     return alt_str;
 }
 
+// Process longitude data
 QString& GPSWidget::lon_position(QString& lon_str)
 {
     lon_str.clear();
@@ -154,6 +163,7 @@ QString& GPSWidget::lon_position(QString& lon_str)
     return lon_str;
 }
 
+// Parse GPS data
 void GPSWidget::readGpsData()
 {
     QByteArray GPS_Data = myGpsCom->readAll();
